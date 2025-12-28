@@ -6,7 +6,7 @@ pub struct Row{
 }
 
 impl Row {
-    fn new(contents: Vec<Data>) -> Self {
+    pub fn new(contents: Vec<Data>) -> Self {
         Self { contents }
     }
 }

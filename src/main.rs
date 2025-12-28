@@ -3,22 +3,33 @@ mod controllers;
 
 use crate::models::data_model::ColumnType;
 use crate::models::data_model::VariableData;
+use crate::models::schema_model::Schema;
 use crate::models::table_model::Table;
+use crate::models::column_model::Column;
 
-fn insert_row(table: &mut Table, row: Vec<VariableData>){
-    let result = table.insert(row);
+use crate::controllers::row_controller::insert_row;
 
-    match &result {
-        Ok(_) => println!("Fila insertada correctamente"),
-        Err(e) => println!("Error al insertar fila: {:?}", e),
-    }
-}
 fn main() {
-    let schema = vec![
-        ColumnType::Integer,
-        ColumnType::Text,
-        ColumnType::Float,
-    ];
+    let schema = Schema::new(vec![
+        Column {
+            name: "id".to_string(),
+            col_type: ColumnType::Integer,
+            nullable: false,
+            is_primary_key: true,
+        },
+        Column {
+            name: "name".to_string(),
+            col_type: ColumnType::Text,
+            nullable: false,
+            is_primary_key: false,
+        },
+        Column {
+            name: "age".to_string(),
+            col_type: ColumnType::Float,
+            nullable: true,
+            is_primary_key: false,
+        },
+    ]);
 
     let mut table = Table::new(schema);
 
